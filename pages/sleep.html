@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sleep Timing Helper</title>
+    <meta name="description" content="Sleep Timing Helper" />
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
+    <link rel="stylesheet" href="../css/dark-mode.css" id="theme-link" />
+    <link rel="icon" type="image/png" href="../favicons/s.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Return to Index
+            </legend>
+            <a href="../index.html">Click this to return to the website index</a>
+        </fieldset>
+
+        <br>
+        <div class="button_container">
+            <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
+            <br>
+            <button type="button" class="big_button" onclick="setUserSleep()">Set Desired Hours of Sleep</button>
+            <button type="button" class="big_button" onclick="setCustomTime()">Set Custom Wake Up Time</button>
+            <br>
+            <button type="button" class="big_button" onclick="setNotifications()">Set Notifications</button>
+            <button type="button" class="big_button" onclick="enableNotifications()">Enable Notifications</button>
+            <button type="button" class="big_button" onclick="disableNotifications()">Disable Notifications</button>
+            <button type="button" class="big_button" onclick="testNotification()">Test Notification</button>
+        </div>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Custom Bedtime Notifications
+            </legend>
+            <div id="notifications_div"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Desired Hours of Sleep
+            </legend>
+            <div id="desired_sleep_div"></div>
+        </fieldset>
+
+        <br>
+
+        <fieldset class="group">
+            <legend class="group_title">
+                Current Time
+            </legend>
+            <div id="current_time_div"></div>
+        </fieldset>
+
+        <br>
+
+        <fieldset class="group">
+            <legend class="group_title">
+                Custom Time
+            </legend>
+            <div id="custom_time_div"></div>
+            <div id="time_until_custom"></div>
+            <div id="time_until_custom_bedtime"></div>
+        </fieldset>
+
+        <br>
+
+        <fieldset class="group">
+            <legend class="group_title">
+                Default Times
+            </legend>
+
+            <fieldset>
+                <legend class="group_title">
+                    7:00 AM
+                </legend>
+                <div id="700"></div>
+                <div id="timeUntil700"></div>
+                <div id="timeUntilBedtime700"></div>
+            </fieldset>
+
+            <br>
+            <fieldset>
+                <legend class="group_title">
+                    7:30 AM
+                </legend>
+                <div id="730"></div>
+                <div id="timeUntil730"></div>
+                <div id="timeUntilBedtime730"></div>
+            </fieldset>
+
+            <br>
+            <fieldset>
+                <legend class="group_title">
+                    8:00 AM
+                </legend>
+                <div id="800"></div>
+                <div id="timeUntil800"></div>
+                <div id="timeUntilBedtime800"></div>
+            </fieldset>
+
+            <br>
+            <fieldset>
+                <legend class="group_title">
+                    8:30 AM
+                </legend>
+                <div id="830"></div>
+                <div id="timeUntil830"></div>
+                <div id="timeUntilBedtime830"></div>
+            </fieldset>
+
+            <br>
+            <fieldset>
+                <legend class="group_title">
+                    9:00 AM
+                </legend>
+                <div id="900"></div>
+                <div id="timeUntil900"></div>
+                <div id="timeUntilBedtime900"></div>
+            </fieldset>
+        </fieldset>
+
+        <br><br><br>
+    </div>
+
+    <script type="text/javascript" src="../js/moment.min.js"></script>
+    <script type="text/javascript" src="../js/moment-precise-range.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/sleep.js"></script>
+</body>
+
+</html>

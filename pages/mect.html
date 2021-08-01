@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multiple Event Countdown Timers</title>
+    <meta name="description" content="Multiple Event Countdown Timers" />
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
+    <link rel="stylesheet" href="../css/dark-mode.css" id="theme-link" />
+    <link rel="icon" type="image/png" href="../favicons/m.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Return to Index
+            </legend>
+            <a href="../index.html">Click this to return to the website index</a>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Notes
+            </legend>
+            - <a href="../files/sample.txt">Click this to see a sample JSON file</a><br>
+            - Importing events will delete all previously stored events<br>
+            - This site can help validate JSON: <a
+                href="https://codebeautify.org/jsonviewer">https://codebeautify.org/jsonviewer</a><br>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Notifications Instructions
+            </legend>
+            - The "Notifications" box should have a comma separated list of numbers that indicate when a notification
+            should take place<br>
+            - For example, 0,10,20 would trigger notifications 0, 10, and 20 minutes before an event<br>
+            - Enter -1 in the box to prevent notifications for that specific event<br>
+            - If the "Notifications" box is left empty then a notification at 0 seconds will be created
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Add Event
+            </legend>
+
+            <form name="eventForm" onsubmit="return false">
+                Event name <input type="text" name="name">
+                <br>
+                Event time (YYYY-MM-DD HH:MM) <input type="text" name="dateTime">
+                <br>
+                Notifications <input type="text" name="notifications">
+                <br>
+                <input class="formButton" type="submit" value="Submit" onclick="addEvent()">
+            </form>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Quick Add
+            </legend>
+
+            <form name="quickAddForm" onsubmit="return false">
+                Event name <input type="text" name="name">
+                <br>
+                <input class="formButton" type="submit" value="15m" onclick="quickAdd(15)">
+                <input class="formButton" type="submit" value="30m" onclick="quickAdd(30)">
+                <input class="formButton" type="submit" value="60m" onclick="quickAdd(60)">
+            </form>
+        </fieldset>
+
+        <br>
+        <div class="button_container">
+            <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
+            <br>
+            <button type="button" class="big_button" onclick="enableNotifications()">Enable Notifications</button>
+            <button type="button" class="big_button" onclick="disableNotifications()">Disable Notifications</button>
+            <button type="button" class="big_button" onclick="testNotification()">Test Notification</button>
+            <br>
+            <button type="button" class="big_button" onclick="sortEvents(1)">Sort Events (Earlier to Later)</button>
+            <button type="button" class="big_button" onclick="sortEvents(2)">Sort Events (Later to Earlier)</button>
+            <button type="button" class="big_button" onclick="clearEvents()">Clear Events</button>
+            <br>
+            <button type="button" class="big_button" onclick="exportEvents(1)">Export Events to Text (Compact)</button>
+            <button type="button" class="big_button" onclick="exportEvents(2)">Export Events to Text (Beautify)</button>
+            <button type="button" class="big_button" onclick="importEvents()">Import Events from Text</button>
+            <br>
+            <button type="button" class="big_button" onclick="displayAllEvents(3)">All Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(1)">Future Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(2)">Past Events</button>
+            <br>
+            <button type="button" class="big_button" onclick="changeFormat(6)">YMDHMS</button>
+            <button type="button" class="big_button" onclick="changeFormat(5)">MDHMS</button>
+            <button type="button" class="big_button" onclick="changeFormat(4)">DHMS</button>
+            <button type="button" class="big_button" onclick="changeFormat(3)">HMS</button>
+            <button type="button" class="big_button" onclick="changeFormat(2)">MS</button>
+            <button type="button" class="big_button" onclick="changeFormat(1)">S</button>
+        </div>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Current Time
+            </legend>
+            <div id="current_time_div"></div>
+        </fieldset>
+
+        <br>
+        <div id="all_events">
+            <fieldset class="event_group" id="users_events">
+                <legend class="group_title">
+                    Your Events
+                </legend>
+            </fieldset>
+            <br><br>
+        </div>
+
+        <br><br><br>
+    </div>
+
+    <script type="text/javascript" src="../js/moment.min.js"></script>
+    <script type="text/javascript" src="../js/moment-precise-range.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/mect.js"></script>
+</body>
+
+</html>

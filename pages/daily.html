@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Daily Event Tracker</title>
+    <meta name="description" content="Daily Event Tracker" />
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
+    <link rel="stylesheet" href="../css/dark-mode.css" id="theme-link" />
+    <link rel="icon" type="image/png" href="../favicons/e.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Return to Index
+            </legend>
+            <a href="../index.html">Click this to return to the website index</a>
+        </fieldset>
+
+        <br>
+        <div class="button_container">
+            <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
+            <br>
+            <button type="button" class="big_button" onclick="setEventStart()">Set Event Start</button>
+            <button type="button" class="big_button" onclick="setEventEnd()">Set Event End</button>
+            <br>
+            <button type="button" class="big_button" onclick="setNotifications()">Set Notifications</button>
+            <button type="button" class="big_button" onclick="enableNotifications()">Enable Notifications</button>
+            <button type="button" class="big_button" onclick="disableNotifications()">Disable Notifications</button>
+            <button type="button" class="big_button" onclick="testNotification()">Test Notification</button>
+        </div>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                End Time Notifications
+            </legend>
+            <div id="notifications_div"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Current Time
+            </legend>
+            <div id="current_time_div"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="event_group">
+            <legend class="group_title">
+                Event Start Time
+            </legend>
+            <div id="start_time_div"></div>
+            <div id="time_until_start"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="event_group">
+            <legend class="group_title">
+                Event End Time
+            </legend>
+            <div id="end_time_div"></div>
+            <div id="time_until_end"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="event_group">
+            <legend class="group_title">
+                Percent of Event Finished & Left
+            </legend>
+            <div id="percent"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="event_group">
+            <legend class="group_title">
+                Event Duration
+            </legend>
+            <div id="duration"></div>
+        </fieldset>
+
+        <br><br>
+        <br><br><br>
+    </div>
+
+    <script type="text/javascript" src="../js/moment.min.js"></script>
+    <script type="text/javascript" src="../js/moment-precise-range.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/daily.js"></script>
+</body>
+
+</html>
