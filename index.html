@@ -9,6 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
     <link rel="stylesheet" href="css/dark-mode.css" id="theme-link" />
     <link rel="icon" type="image/png" href="favicons/d.ico" />
+    <script>
+        function toggleLightMode() {
+            const theme = document.querySelector("#theme-link");
+            theme.href = (theme.getAttribute("href") == "css/dark-mode.css") ? "css/light-mode.css" : "css/dark-mode.css";
+        }
+    </script>
 </head>
 
 <body>
@@ -53,7 +59,8 @@
                 <legend class="group_title">
                     About
                 </legend>
-                - This website lets you add events and see the time until the event or the time passed since the event<br>
+                - This website lets you add events and see the time until the event or the time passed since the
+                event<br>
                 - Optional browser notifications when an event occurs or at multiple times (0, 10, 20, etc minutes)
                 before an event occurs<br>
                 - Sort events earliest to latest or latest to earliest<br>
@@ -104,7 +111,8 @@
                 <legend class="group_title">
                     About
                 </legend>
-                - Enter your desired hours of sleep and desired wake up time and see how much time is left until bedtime<br>
+                - Enter your desired hours of sleep and desired wake up time and see how much time is left until
+                bedtime<br>
                 - Has multiple default wake up times<br>
                 - Saves custom times to browser<br>
                 - Supports multiple notifications before bedtime
@@ -181,7 +189,6 @@
         </fieldset>
         <br><br><br>
     </div>
-    <script type="text/javascript" src="../js/switch-themes.js"></script>
 </body>
 
 </html>
