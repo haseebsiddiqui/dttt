@@ -1,8 +1,8 @@
 var intervalTimer = setInterval(function () { updateEverything(); }, UPDATE_TIME);
 var desiredHoursOfSleep = getUserSleep();
 var userCustomSleepTime = getCustomTime();
-var notifications = getNotifications();
 var splitNotifications = [];
+var notifications = getNotifications();
 
 updateDesiredHoursOfSleep(desiredHoursOfSleep);
 showNotifications();

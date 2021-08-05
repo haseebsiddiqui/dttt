@@ -6,8 +6,8 @@ var timeUntilEndMs;
 var userStart;
 var userEnd;
 var fixedEnd;
-var notifications = getNotifications();
 var splitNotifications = [];
+var notifications = getNotifications();
 
 showNotifications();
 

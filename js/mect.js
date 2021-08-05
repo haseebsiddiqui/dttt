@@ -59,7 +59,7 @@ function quickAdd(minutes) {
     const dateMinutes = padNumber(d.getMinutes());
     const dateSeconds = padNumber(d.getSeconds());
     const dateString = `${dateYear}-${dateMonth}-${dateDay} ${dateHours}:${dateMinutes}:${dateSeconds}`;
-    allEvents.push(new Event(formName, dateString, 0));
+    allEvents.push(new Event(formName, dateString, [0]));
     saveEvents();
     displayAllEvents(currentEventsType);
 }
@@ -168,11 +168,11 @@ function checkNotifications(someEvent, timeUntil) {
     const name = someEvent.name;
 
     // If notification array is empty, notify at 0 seconds
-    if (notificationLength == 0 && notificationStatus === "enabled" && isTimeToNotify(0, timeUntil)) {
+    if (notificationLength == 0 && isTimeToNotify(0, timeUntil)) {
         createNotification(`"${name}" has occurred`, "", true);
     }
     // If notification array has one or more values, check all of them
-    else if (notificationStatus === "enabled" && notificationLength > 0 && notificationsArray[0] >= 0) {
+    else if (notificationLength > 0 && notificationsArray[0] >= 0) {
         for (const currentNumber of notificationsArray) {
             if (isTimeToNotify(currentNumber, timeUntil)) {
                 let notificationText = `${currentNumber} minutes until "${name}"`;
