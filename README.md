@@ -1,6 +1,6 @@
 # Date & Time Tracking Tools
 
-This is a series of related tools related to date and time tracking.
+This is a series of related tools that handle date and time tracking.
 
 - Multiple Events Countdown Timer
 - Daily Event Tracker
@@ -8,4 +8,4 @@ This is a series of related tools related to date and time tracking.
 
 ## Website
 
-<https://haseebsiddiqui.github.io/dttt>
+Try it here: <https://haseebsiddiqui.github.io/dttt>
