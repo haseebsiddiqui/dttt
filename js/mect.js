@@ -239,7 +239,7 @@ function updateEvents(someFormat) {
 
         switch (someFormat) {
             case WDHMS:
-                allTimes[i].innerText = `${weeksLeft} weeks, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                allTimes[i].innerText = `${eventType} ${weeksLeft} weeks, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
                 break;
             case YMDHMS:
                 allTimes[i].innerText = `${eventType} ${yearsLeft} years, ${monthsLeft} months, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
