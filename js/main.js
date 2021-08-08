@@ -1,14 +1,8 @@
-const YMDHMS = 6;
-const MDHMS = 5;
-const DHMS = 4;
-const HMS = 3;
-const MS = 2;
-const S = 1;
-
 const MS_IN_SECOND = 1000;
 const SEC_IN_MINUTE = 60;
 const MIN_IN_HOUR = 60;
 const HOURS_IN_DAY = 24;
+const DAYS_IN_WEEK = 7;
 const MONTHS_IN_YEAR = 12;
 
 const UPDATE_TIME = 1000;
@@ -135,47 +129,4 @@ function hasEventPassed(someDate) {
 
 function getMsFromNowUntilDate(someDate) {
     return Math.abs(now.getTime() - someDate.getTime());
-}
-
-function setTimeLeft(eventDate, someFormat, timeMs) {
-    if (someFormat == YMDHMS || someFormat == MDHMS) {
-        const eventMoment = moment(eventDate);
-        const currentMoment = moment(now);
-        const diff = moment.preciseDiff(eventMoment, currentMoment, true);
-        if (someFormat == YMDHMS) {
-            yearsLeft = diff.years;
-            monthsLeft = diff.months;
-        } else {
-            yearsLeft = 0;
-            monthsLeft = diff.months + diff.years * MONTHS_IN_YEAR;
-        }
-        daysLeft = diff.days;
-        hoursLeft = diff.hours;
-        minutesLeft = diff.minutes;
-        secondsLeft = diff.seconds;
-    } else if (someFormat == DHMS) {
-        yearsLeft = monthsLeft = 0;
-        daysLeft = Math.floor(timeMs / MS_IN_SECOND / SEC_IN_MINUTE / MIN_IN_HOUR / HOURS_IN_DAY);
-        timeMs = timeMs - (daysLeft * MS_IN_SECOND * SEC_IN_MINUTE * MIN_IN_HOUR * HOURS_IN_DAY);
-        hoursLeft = Math.floor(timeMs / MS_IN_SECOND / SEC_IN_MINUTE / MIN_IN_HOUR);
-        timeMs = timeMs - (hoursLeft * MS_IN_SECOND * SEC_IN_MINUTE * MIN_IN_HOUR);
-        minutesLeft = Math.floor(timeMs / MS_IN_SECOND / SEC_IN_MINUTE);
-        timeMs = timeMs - (minutesLeft * MS_IN_SECOND * SEC_IN_MINUTE);
-        secondsLeft = Math.floor(timeMs / MS_IN_SECOND);
-    } else if (someFormat == HMS) {
-        yearsLeft = monthsLeft = daysLeft = 0;
-        hoursLeft = Math.floor(timeMs / MS_IN_SECOND / SEC_IN_MINUTE / MIN_IN_HOUR);
-        timeMs = timeMs - (hoursLeft * MS_IN_SECOND * SEC_IN_MINUTE * MIN_IN_HOUR);
-        minutesLeft = Math.floor(timeMs / MS_IN_SECOND / SEC_IN_MINUTE);
-        timeMs = timeMs - (minutesLeft * MS_IN_SECOND * SEC_IN_MINUTE);
-        secondsLeft = Math.floor(timeMs / MS_IN_SECOND);
-    } else if (someFormat == MS) {
-        yearsLeft = monthsLeft = daysLeft = hoursLeft = 0;
-        minutesLeft = Math.floor(timeMs / MS_IN_SECOND / SEC_IN_MINUTE);
-        timeMs = timeMs - (minutesLeft * MS_IN_SECOND * SEC_IN_MINUTE);
-        secondsLeft = Math.floor(timeMs / MS_IN_SECOND);
-    } else {
-        yearsLeft = monthsLeft = daysLeft = hoursLeft = minutesLeft = 0;
-        secondsLeft = Math.floor(timeMs / MS_IN_SECOND);
-    }
 }
