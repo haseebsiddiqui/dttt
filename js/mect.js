@@ -106,7 +106,7 @@ function displayAllEvents(eventsType) {
 
     for (let i = 0; i < allEvents.length; i++) {
         const dateString = allEvents[i].dateTime;
-        const eventDate = new Date(dateString);
+        const eventDate = returnCorrectDate(dateString);
 
         if (eventsType === FUTURE_EVENTS || eventsType === PAST_EVENTS) {
             if (hasEventPassed(eventDate)) {
@@ -168,9 +168,9 @@ function displayAllEvents(eventsType) {
 
 function sortEvents(sortType) {
     if (sortType === 1) {
-        allEvents.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+        allEvents.sort((a, b) => returnCorrectDate(a.dateTime) - returnCorrectDate(b.dateTime));
     } else {
-        allEvents.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+        allEvents.sort((a, b) => returnCorrectDate(b.dateTime) - returnCorrectDate(a.dateTime));
     }
     saveEvents();
     displayAllEvents(currentEventsType);
@@ -199,6 +199,13 @@ function checkNotifications(someEvent, timeUntil) {
     }
 }
 
+function returnCorrectDate(someDate) {
+    if (/^[0-9]{8}T[0-9]{6}Z$/.test(someDate)) {
+        return moment(someDate, 'YYYYMMDDTHHmmssZ').toDate();
+    }
+    return new Date(someDate);
+}
+
 function updateEvents(someFormat) {
     const allTimes = document.getElementsByClassName("timeUntil");
     let indexesArray = [];
@@ -218,7 +225,7 @@ function updateEvents(someFormat) {
         event = (currentEventsType == ALL_EVENTS) ? allEvents[i] : allEvents[indexesArray[i]];
 
         dateString = event.dateTime;
-        const eventDate = new Date(dateString);
+        const eventDate = returnCorrectDate(dateString);
         const timeToEvent = getMsFromNowUntilDate(eventDate);
         isEventFinished = hasEventPassed(eventDate);
         setTimeLeft(eventDate, someFormat, timeToEvent);
