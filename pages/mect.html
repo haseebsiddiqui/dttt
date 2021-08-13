@@ -82,6 +82,7 @@
         <br>
         <div class="button_container">
             <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
+            <button type="button" class="big_button" onclick="updateEventStatistics()">Update Event Statistics</button>
             <br>
             <button type="button" class="big_button" onclick="enableNotifications()">Enable Notifications</button>
             <button type="button" class="big_button" onclick="disableNotifications()">Disable Notifications</button>
@@ -115,6 +116,14 @@
                 Current Time
             </legend>
             <div id="current_time_div"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Event Statistics
+            </legend>
+            <div id="statistics_div"></div>
         </fieldset>
 
         <br>

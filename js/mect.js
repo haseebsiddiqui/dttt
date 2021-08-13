@@ -45,6 +45,22 @@ function updateEverything() {
     updateEvents(currentFormat);
 }
 
+function updateEventStatistics() {
+    let numberOfPastEvents = 0;
+    let numberOfFutureEvents = 0;
+
+    for (const someEvent of allEvents) {
+        if (hasEventPassed(returnCorrectDate(someEvent.dateTime))) {
+            numberOfPastEvents += 1;
+        } else {
+            numberOfFutureEvents += 1;
+        }
+    }
+
+    const statisticsDiv = document.getElementById("statistics_div");
+    statisticsDiv.innerText = `Total number of events: ${allEvents.length}\nPassed: ${numberOfPastEvents}\nUpcoming: ${numberOfFutureEvents}`;
+}
+
 function addEvent() {
     const formName = document.forms["eventForm"]["name"].value;
     const formTime = document.forms["eventForm"]["dateTime"].value;
@@ -199,11 +215,11 @@ function checkNotifications(someEvent, timeUntil) {
     }
 }
 
-function returnCorrectDate(someDate) {
-    if (/^[0-9]{8}T[0-9]{6}Z$/.test(someDate)) {
-        return moment(someDate, 'YYYYMMDDTHHmmssZ').toDate();
+function returnCorrectDate(someDateString) {
+    if (/^[0-9]{8}T[0-9]{6}Z$/.test(someDateString)) {
+        return moment(someDateString, 'YYYYMMDDTHHmmssZ').toDate();
     }
-    return new Date(someDate);
+    return new Date(someDateString);
 }
 
 function updateEvents(someFormat) {
