@@ -365,10 +365,9 @@ function clearEvents() {
 
 function exportEvents(number) {
     if (number === 1) {
-        console.log(JSON.stringify(allEvents));
+        prompt("Copy this text", JSON.stringify(allEvents));
         alert(JSON.stringify(allEvents));
     } else {
-        console.log(JSON.stringify(allEvents, null, 2));
         alert(JSON.stringify(allEvents, null, 2));
     }
 }
