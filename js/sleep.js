@@ -27,13 +27,14 @@ function updateCustomTime(someTime) {
     const timeUntilDiv = document.getElementById("time_until_custom");
     timeUntilDiv.innerText = `Time until ${someTime} is\n${moment.preciseDiff(futureTime, now)}`;
     const timeUntilBedtime = setTimeUntilOrSinceEvent("time_until_custom_bedtime", futureTime, desiredHoursOfSleep, "bedtime");
+
     if (timeUntilBedtime >= 0) handleNotifications(timeUntilBedtime);
 }
 
 function handleNotifications(timeUntilBedtime) {
     for (const n of splitNotifications) {
         if (n >= 0 && isTimeToNotify(n, timeUntilBedtime)) {
-            createNotification(`${n} minutes until bedtime`, "", true);
+            createNotification(`${n} minutes until bedtime`, `Waking at ${userCustomSleepTime}, ${desiredHoursOfSleep} hours of sleep`, true);
         }
     }
 }

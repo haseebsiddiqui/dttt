@@ -123,6 +123,14 @@ function displayAllEvents(eventsType) {
     for (let i = 0; i < allEvents.length; i++) {
         const dateString = allEvents[i].dateTime;
         const eventDate = returnCorrectDate(dateString);
+        const endDateString = allEvents[i].endDateTime;
+        let eventEndDate = null;
+        let endDateExists = false;
+
+        if (endDateString !== undefined) {
+            endDateExists = true;
+            eventEndDate = returnCorrectDate(endDateString);
+        }
 
         if (eventsType === FUTURE_EVENTS || eventsType === PAST_EVENTS) {
             if (hasEventPassed(eventDate)) {
@@ -159,13 +167,31 @@ function displayAllEvents(eventsType) {
         dateStringDiv.innerHTML = `Expanded: ${eventDate.toString()}`;
         newElement.appendChild(dateStringDiv);
 
-        const notificationsDiv = document.createElement("div");
-        notificationsDiv.innerHTML = `Notifications: ${allEvents[i].notifications}`;
-        newElement.appendChild(notificationsDiv);
-
         const timeDiv = document.createElement("div");
         timeDiv.classList.add("timeUntil");
         newElement.appendChild(timeDiv);
+
+        const endDateDiv = document.createElement("div");
+        const endDateStringDiv = document.createElement("div");
+        const endTimeDiv = document.createElement("div");
+        const percentDiv = document.createElement("div");
+
+        if (endDateExists) {
+            const endTwelveHourString = twelveHourTime(eventEndDate);
+            endDateDiv.innerHTML = `End Date: ${endDateString} (${endTwelveHourString})`;
+            endDateStringDiv.innerHTML = `Expanded: ${eventEndDate.toString()}`;
+        }
+
+        endTimeDiv.classList.add("endTimeUntil");
+        percentDiv.classList.add("percent");
+        newElement.appendChild(endDateDiv);
+        newElement.appendChild(endDateStringDiv);
+        newElement.appendChild(endTimeDiv);
+        newElement.appendChild(percentDiv);
+
+        const notificationsDiv = document.createElement("div");
+        notificationsDiv.innerHTML = `Notifications: ${allEvents[i].notifications}`;
+        newElement.appendChild(notificationsDiv);
 
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "Delete";
@@ -193,9 +219,10 @@ function sortEvents(sortType) {
 }
 
 function checkNotifications(someEvent, timeUntil) {
-    const notificationStatus = localStorage.getItem("notifications");
+    const notificationStatus = getNotificationStatus();
     if (notificationStatus !== "enabled") return;
     const notificationsArray = someEvent.notifications;
+    if (notificationsArray == null) return;
     const notificationLength = notificationsArray.length;
     const name = someEvent.name;
 
@@ -222,69 +249,110 @@ function returnCorrectDate(someDateString) {
     return new Date(someDateString);
 }
 
+function getCorrectIndexArray(eventType) {
+    switch (eventType) {
+        case ALL_EVENTS:
+            return [...allEvents];
+        case FUTURE_EVENTS:
+            return [...futureEventIndexes];
+        case PAST_EVENTS:
+            return [...pastEventIndexes];
+        default:
+            return [...allEvents];
+    }
+}
+
 function updateEvents(someFormat) {
-    const allTimes = document.getElementsByClassName("timeUntil");
+    const timeElements = document.getElementsByClassName("timeUntil");
+    const endTimeElements = document.getElementsByClassName("endTimeUntil");
+    const percentElements = document.getElementsByClassName("percent");
+    const passedColor = "#ff000d";
+    const upcomingColor = "#34eb4c";
+    let percentString = "";
+    let eventType = "";
     let indexesArray = [];
 
-    if (currentEventsType === PAST_EVENTS) {
-        indexesArray = [...pastEventIndexes];
-    } else if (currentEventsType === FUTURE_EVENTS) {
-        indexesArray = [...futureEventIndexes];
-    } else {
-        indexesArray = [...allEvents];
-    }
+    indexesArray = getCorrectIndexArray(currentEventsType);
 
     for (let i = 0; i < indexesArray.length; i++) {
-        let isEventFinished = false;
-        let event = "";
-        let dateString = "";
-        event = (currentEventsType == ALL_EVENTS) ? allEvents[i] : allEvents[indexesArray[i]];
-
-        dateString = event.dateTime;
+        const event = (currentEventsType == ALL_EVENTS) ? allEvents[i] : allEvents[indexesArray[i]];
+        const dateString = event.dateTime;
         const eventDate = returnCorrectDate(dateString);
+        const endDateString = event.endDateTime;
+
+        if (endDateString !== undefined) {
+            const eventEndDate = returnCorrectDate(endDateString);
+            const hasEndPassed = hasEventPassed(eventEndDate);
+
+            if (hasEndPassed) {
+                eventType = "Passed:";
+                endTimeElements[i].style.color = passedColor;
+            } else {
+                eventType = "Upcoming:";
+                endTimeElements[i].style.color = upcomingColor;
+            }
+
+            const timeToEndEvent = getMsFromNowUntilDate(eventEndDate);
+            setTimeLeft(eventEndDate, someFormat, timeToEndEvent);
+            setInnerText(endTimeElements[i], someFormat, eventType);
+
+            const duration = Math.abs(eventDate.getTime() - eventEndDate.getTime());
+            const percentFinished = (duration - timeToEndEvent) / duration * 100;
+
+            if (percentFinished > 100 || percentFinished < 0 || hasEndPassed) {
+                percentString = `--- finished, --- left`;
+            } else {
+                percentString = `${percentFinished.toFixed(3)} finished, ${(100 - percentFinished).toFixed(3)} left`;
+            }
+
+            percentElements[i].innerText = percentString;
+        }
+
         const timeToEvent = getMsFromNowUntilDate(eventDate);
-        isEventFinished = hasEventPassed(eventDate);
+        const isEventFinished = hasEventPassed(eventDate);
         setTimeLeft(eventDate, someFormat, timeToEvent);
 
         if (!isEventFinished) {
             checkNotifications(event, timeToEvent);
         }
 
-        let eventType = "";
-
-        if (isEventFinished === true) {
+        if (isEventFinished) {
             eventType = "Passed:";
-            allTimes[i].style.color = "#FF2400";
+            timeElements[i].style.color = passedColor;
         } else {
             eventType = "Upcoming:";
-            allTimes[i].style.color = "aqua";
+            timeElements[i].style.color = upcomingColor;
         }
 
-        switch (someFormat) {
-            case WDHMS:
-                allTimes[i].innerText = `${eventType} ${weeksLeft} weeks, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                break;
-            case YMDHMS:
-                allTimes[i].innerText = `${eventType} ${yearsLeft} years, ${monthsLeft} months, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                break;
-            case MDHMS:
-                allTimes[i].innerText = `${eventType} ${monthsLeft} months, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                break;
-            case DHMS:
-                allTimes[i].innerText = `${eventType} ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                break;
-            case HMS:
-                allTimes[i].innerText = `${eventType} ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                break;
-            case MS:
-                allTimes[i].innerText = `${eventType} ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                break;
-            case S:
-                allTimes[i].innerText = `${eventType} ${secondsLeft} seconds`;
-                break;
-            default:
-                allTimes[i].innerText = "Formatting error";
-        }
+        setInnerText(timeElements[i], someFormat, eventType);
+    }
+}
+
+function setInnerText(someElement, someFormat, eventType) {
+    switch (someFormat) {
+        case WDHMS:
+            someElement.innerText = `${eventType} ${weeksLeft} weeks, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            break;
+        case YMDHMS:
+            someElement.innerText = `${eventType} ${yearsLeft} years, ${monthsLeft} months, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            break;
+        case MDHMS:
+            someElement.innerText = `${eventType} ${monthsLeft} months, ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            break;
+        case DHMS:
+            someElement.innerText = `${eventType} ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            break;
+        case HMS:
+            someElement.innerText = `${eventType} ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            break;
+        case MS:
+            someElement.innerText = `${eventType} ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            break;
+        case S:
+            someElement.innerText = `${eventType} ${secondsLeft} seconds`;
+            break;
+        default:
+            someElement.innerText = "Error";
     }
 }
 

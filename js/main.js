@@ -11,6 +11,7 @@ const USER_EVENT = 1;
 const SLEEP_EVENT = 2;
 
 var now = new Date();
+var notificationStatus = getNotificationStatus();
 
 function updateNow() {
     now = new Date();
@@ -79,14 +80,21 @@ function enableNotifications() {
     if (Notification.permission === "denied") {
         alert("Notifications appear to be blocked");
     }
+
+    notificationStatus = getNotificationStatus();
 }
 
 function disableNotifications() {
     localStorage.setItem("notifications", "disabled");
+    notificationStatus = getNotificationStatus();
 }
 
 function testNotification() {
     createNotification("This is a test notification", "This is a test notification", true);
+}
+
+function getNotificationStatus() {
+    return localStorage.getItem("notifications");
 }
 
 function createNotification(title, theBody, shouldRequireInteraction) {

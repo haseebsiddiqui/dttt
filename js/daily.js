@@ -79,9 +79,9 @@ function updatePercentFinishedAndLeft() {
     let finalString = "";
 
     if (percentFinished > 100 || percentFinished < 0) {
-        finalString = `---`;
+        finalString = `--- finished, --- left`;
     } else {
-        finalString = `${percentFinished.toFixed(3)} finished ${(100 - percentFinished).toFixed(3)} left`;
+        finalString = `${percentFinished.toFixed(3)} finished, ${(100 - percentFinished).toFixed(3)} left`;
     }
 
     theDiv.innerText = finalString;
