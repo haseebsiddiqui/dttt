@@ -33,6 +33,7 @@ var diff = null;
 
 allEvents = getLocalStorageItem("allEvents");
 displayAllEvents(currentEventsType);
+updateEventStatistics();
 
 function Event(name, dateTime, notifications) {
     this.name = name;
