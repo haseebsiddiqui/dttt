@@ -107,6 +107,7 @@ function deleteEvent(someIndex) {
     allEvents.splice(someIndex, 1);
     saveEvents();
     displayAllEvents(currentEventsType);
+    updateEventStatistics();
 }
 
 function displayAllEvents(eventsType) {
@@ -367,6 +368,7 @@ function clearEvents() {
     localStorage.setItem("allEvents", "[]");
     allEvents = getLocalStorageItem("allEvents");
     displayAllEvents(currentEventsType);
+    updateEventStatistics();
 }
 
 function exportEvents(number) {
