@@ -76,6 +76,7 @@ function addEvent() {
     allEvents.push(new Event(formName, formTime, notifications));
     saveEvents();
     displayAllEvents(currentEventsType);
+    updateEventStatistics();
 }
 
 function quickAdd(minutes) {
@@ -85,6 +86,7 @@ function quickAdd(minutes) {
     allEvents.push(new Event(formName, convertDateToString(d), [0]));
     saveEvents();
     displayAllEvents(currentEventsType);
+    updateEventStatistics();
 }
 
 function convertDateToString(d) {
@@ -170,6 +172,7 @@ function displayAllEvents(eventsType) {
 
         const timeDiv = document.createElement("div");
         timeDiv.classList.add("timeUntil");
+        timeDiv.id = `time_${i}`;
         newElement.appendChild(timeDiv);
 
         const endDateDiv = document.createElement("div");
@@ -263,6 +266,13 @@ function getCorrectIndexArray(eventType) {
     }
 }
 
+function isElementVisible(e) {
+    const rect = e.getBoundingClientRect();
+    const elementTop = rect.top;
+    const elementBottom = rect.bottom;
+    return elementTop < window.innerHeight && elementBottom >= 0;
+}
+
 function updateEvents(someFormat) {
     const timeElements = document.getElementsByClassName("timeUntil");
     const endTimeElements = document.getElementsByClassName("endTimeUntil");
@@ -325,7 +335,9 @@ function updateEvents(someFormat) {
             timeElements[i].style.color = upcomingColor;
         }
 
-        setInnerText(timeElements[i], someFormat, eventType);
+        if (isElementVisible(document.getElementById(`time_${i}`))) {
+            setInnerText(timeElements[i], someFormat, eventType);
+        }
     }
 }
 
