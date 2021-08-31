@@ -20,8 +20,16 @@ function updateNow() {
 function updateCurrentTime() {
     updateNow();
     const currentTimeDiv = document.getElementById("current_time_div");
-    const twelveHourString = twelveHourTime(now);
-    currentTimeDiv.innerText = `${now.toString()}\n(${twelveHourString})`;
+
+    if (isElementVisible(currentTimeDiv)) {
+        const twelveHourString = twelveHourTime(now);
+        currentTimeDiv.innerText = `${now.toString()}\n(${twelveHourString})`;
+    }
+}
+
+function isElementVisible(e) {
+    const bounds = e.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom >= 0;
 }
 
 function padNumber(someNumber) {

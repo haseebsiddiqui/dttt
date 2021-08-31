@@ -266,13 +266,6 @@ function getCorrectIndexArray(eventType) {
     }
 }
 
-function isElementVisible(e) {
-    const rect = e.getBoundingClientRect();
-    const elementTop = rect.top;
-    const elementBottom = rect.bottom;
-    return elementTop < window.innerHeight && elementBottom >= 0;
-}
-
 function updateEvents(someFormat) {
     const timeElements = document.getElementsByClassName("timeUntil");
     const endTimeElements = document.getElementsByClassName("endTimeUntil");
