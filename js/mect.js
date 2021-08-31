@@ -206,9 +206,9 @@ function displayAllEvents(eventsType) {
         const elementBreak = document.createElement("br");
         elementBreak.classList.add("an_event");
 
-        const finalDiv = document.getElementById("users_events");
-        finalDiv.appendChild(newElement);
-        finalDiv.appendChild(elementBreak);
+        const allEventsDiv = document.getElementById("users_events");
+        allEventsDiv.appendChild(newElement);
+        allEventsDiv.appendChild(elementBreak);
     }
 }
 
@@ -290,53 +290,53 @@ function updateEvents(someFormat) {
         const dateString = event.dateTime;
         const eventDate = returnCorrectDate(dateString);
         const endDateString = event.endDateTime;
-
-        if (endDateString !== undefined) {
-            const eventEndDate = returnCorrectDate(endDateString);
-            const hasEndPassed = hasEventPassed(eventEndDate);
-
-            if (hasEndPassed) {
-                eventType = "Passed:";
-                endTimeElements[i].style.color = passedColor;
-            } else {
-                eventType = "Upcoming:";
-                endTimeElements[i].style.color = upcomingColor;
-            }
-
-            const timeToEndEvent = getMsFromNowUntilDate(eventEndDate);
-            setTimeLeft(eventEndDate, someFormat, timeToEndEvent);
-            setInnerText(endTimeElements[i], someFormat, eventType);
-
-            const duration = Math.abs(eventDate.getTime() - eventEndDate.getTime());
-            const percentFinished = (duration - timeToEndEvent) / duration * 100;
-
-            if (percentFinished > 100 || percentFinished < 0 || hasEndPassed) {
-                percentString = `--- finished, --- left`;
-            } else {
-                percentString = `${percentFinished.toFixed(3)} finished, ${(100 - percentFinished).toFixed(3)} left`;
-            }
-
-            percentElements[i].innerText = percentString;
-        }
-
         const timeToEvent = getMsFromNowUntilDate(eventDate);
         const isEventFinished = hasEventPassed(eventDate);
-        setTimeLeft(eventDate, someFormat, timeToEvent);
 
         if (!isEventFinished) {
             checkNotifications(event, timeToEvent);
         }
 
-        if (isEventFinished) {
-            eventType = "Passed:";
-            timeElements[i].style.color = passedColor;
-        } else {
-            eventType = "Upcoming:";
-            timeElements[i].style.color = upcomingColor;
-        }
-
         if (isElementVisible(document.getElementById(`time_${i}`))) {
+            setTimeLeft(eventDate, someFormat, timeToEvent);
+
+            if (isEventFinished) {
+                eventType = "Passed:";
+                timeElements[i].style.color = passedColor;
+            } else {
+                eventType = "Upcoming:";
+                timeElements[i].style.color = upcomingColor;
+            }
+
             setInnerText(timeElements[i], someFormat, eventType);
+
+            if (endDateString !== undefined) {
+                const eventEndDate = returnCorrectDate(endDateString);
+                const hasEndPassed = hasEventPassed(eventEndDate);
+
+                if (hasEndPassed) {
+                    eventType = "Passed:";
+                    endTimeElements[i].style.color = passedColor;
+                } else {
+                    eventType = "Upcoming:";
+                    endTimeElements[i].style.color = upcomingColor;
+                }
+
+                const timeToEndEvent = getMsFromNowUntilDate(eventEndDate);
+                setTimeLeft(eventEndDate, someFormat, timeToEndEvent);
+                setInnerText(endTimeElements[i], someFormat, eventType);
+
+                const duration = Math.abs(eventDate.getTime() - eventEndDate.getTime());
+                const percentFinished = (duration - timeToEndEvent) / duration * 100;
+
+                if (percentFinished > 100 || percentFinished < 0 || hasEndPassed) {
+                    percentString = `--- finished, --- left`;
+                } else {
+                    percentString = `${percentFinished.toFixed(3)} % finished, ${(100 - percentFinished).toFixed(3)} % left`;
+                }
+
+                percentElements[i].innerText = percentString;
+            }
         }
     }
 }
