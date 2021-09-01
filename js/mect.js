@@ -59,7 +59,7 @@ function updateEventStatistics() {
     }
 
     const statisticsDiv = document.getElementById("statistics_div");
-    statisticsDiv.innerText = `Total number of events: ${allEvents.length}\nPassed: ${numberOfPastEvents}\nUpcoming: ${numberOfFutureEvents}`;
+    statisticsDiv.innerText = `Total number of events: ${allEvents.length}\nPassed: ${numberOfPastEvents}\nUpcoming: ${numberOfFutureEvents}\nPercent completed: ${numberOfPastEvents / (numberOfPastEvents + numberOfFutureEvents) * 100}`;
 }
 
 function addEvent() {
