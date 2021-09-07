@@ -66,6 +66,12 @@ a:visited {
 
 .delete_button {
   display: inline-block;
+  margin: 0;
+  margin-right: 10px;
+}
+
+.export_button {
+  display: inline-block;
   margin: 0 auto;
 }
 
