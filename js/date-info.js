@@ -11,6 +11,6 @@ input.addEventListener("keypress", function () {
     inputValue = document.getElementById("input-box").value;
     const infoDiv = document.getElementById("info_div");
     const tempDate = new Date(inputValue);
-    infoDiv.innerText = `Default parsing: ${tempDate.toString()} (${twelveHourTime(tempDate)})`;
-    infoDiv.innerText += `\nUTC time: ${tempDate.toISOString()}`;
+    infoDiv.innerText = `Default parsing:\n${tempDate.toString()} (${twelveHourTime(tempDate)})`;
+    infoDiv.innerText += `\n\nUTC time:\n${tempDate.toISOString()}`;
 });

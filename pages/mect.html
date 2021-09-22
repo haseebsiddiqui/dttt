@@ -81,7 +81,11 @@
 
         <br>
         <div class="button_container">
-            <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
+            <input type="checkbox" id="dark_mode" onclick="toggleLightMode()">
+            <label for="dark_mode">Toggle Light Mode</label>
+            <input type="checkbox" id="compact" onclick="toggleCompact()">
+            <label for="compact">Toggle Compact</label>
+            <br><br>
             <button type="button" class="big_button" onclick="updateEventStatistics()">Update Event Statistics</button>
             <br>
             <button type="button" class="big_button" onclick="enableNotifications()">Enable Notifications</button>
@@ -96,9 +100,9 @@
             <button type="button" class="big_button" onclick="exportEvents(2)">Export Events to Text (Beautify)</button>
             <button type="button" class="big_button" onclick="importEvents()">Import Events from Text</button>
             <br>
-            <button type="button" class="big_button" onclick="displayAllEvents(3)">All Events</button>
-            <button type="button" class="big_button" onclick="displayAllEvents(1)">Future Events</button>
-            <button type="button" class="big_button" onclick="displayAllEvents(2)">Past Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(3, false)">All Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(1, false)">Future Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(2, false)">Past Events</button>
             <br>
             <button type="button" class="big_button" onclick="changeFormat(6)">YMDHMS</button>
             <button type="button" class="big_button" onclick="changeFormat(5)">MDHMS</button>
@@ -141,7 +145,7 @@
     <script type="text/javascript" src="../js/moment.min.js"></script>
     <script type="text/javascript" src="../js/moment-precise-range.min.js"></script>
     <script type="text/javascript" src="../js/main.min.js"></script>
-    <script type="text/javascript" src="../js/mect.min.js"></script>
+    <script type="text/javascript" src="../js/mect.js"></script>
 </body>
 
 </html>

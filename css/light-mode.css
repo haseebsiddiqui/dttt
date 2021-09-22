@@ -34,7 +34,7 @@ table {
   }
 }
 
-fieldset {
+fieldset, label {
   color: black;
   font-size: 19px;
 }
