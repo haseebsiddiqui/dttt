@@ -64,15 +64,21 @@ a:visited {
   font-size: 16px;
 }
 
-.delete_button {
-  display: inline-block;
-  margin: 0;
-  margin-right: 10px;
-}
-
 .export_button {
   display: inline-block;
   margin: 0 auto;
+  margin-right: 10px;
+}
+
+.export_delete_button {
+  display: inline-block;
+  margin: 0 auto;
+  margin-right: 10px;
+}
+
+.delete_button {
+  display: inline-block;
+  margin: 0;
 }
 
 input {
