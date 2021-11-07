@@ -83,7 +83,6 @@
         <div class="button_container">
             <button type="button" class="big_button" onclick="changePageTitle()">Set Custom Page Title</button>
             <br>
-            <button type="button" class="big_button" onclick="toggleCompact()">Toggle Compact</button>
             <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
             <button type="button" class="big_button" onclick="updateEventStatistics()">Update Event Statistics</button>
             <br>
@@ -112,6 +111,13 @@
                 <option value="2">MS</option>
                 <option value="1">S</option>
                 <option value="7">WDHMS</option>
+            </select>
+            <br>
+            <select id="compact_picker" class="drop_down" onchange="changeCompact()">
+                <option value="none" selected disabled hidden>Pick Compact View</option>
+                <option value="notCompact">Not Compact</option>
+                <option value="compact">Compact</option>
+                <option value="ultraCompact">Ultra Compact</option>
             </select>
         </div>
 

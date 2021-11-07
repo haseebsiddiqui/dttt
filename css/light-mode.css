@@ -77,3 +77,7 @@ input {
 div.button_container {
   text-align: center;
 }
+
+.ultraCompactTimeUntil {
+  display: inline;
+}
