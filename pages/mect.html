@@ -103,14 +103,16 @@
             <button type="button" class="big_button" onclick="displayAllEvents(1)">Future Events</button>
             <button type="button" class="big_button" onclick="displayAllEvents(2)">Past Events</button>
             <br>
-            <button type="button" class="big_button" onclick="changeFormat(6)">YMDHMS</button>
-            <button type="button" class="big_button" onclick="changeFormat(5)">MDHMS</button>
-            <button type="button" class="big_button" onclick="changeFormat(4)">DHMS</button>
-            <button type="button" class="big_button" onclick="changeFormat(3)">HMS</button>
-            <button type="button" class="big_button" onclick="changeFormat(2)">MS</button>
-            <button type="button" class="big_button" onclick="changeFormat(1)">S</button>
-            <br>
-            <button type="button" class="big_button" onclick="changeFormat(7)">WDHMS</button>
+            <select id="format_picker" class="drop_down" onchange="changeFormat()">
+                <option value="none" selected disabled hidden>Pick Upcoming/Passed Format</option>
+                <option value="6">YMDHMS</option>
+                <option value="5">MDHMS</option>
+                <option value="4">DHMS</option>
+                <option value="3">HMS</option>
+                <option value="2">MS</option>
+                <option value="1">S</option>
+                <option value="7">WDHMS</option>
+            </select>
         </div>
 
         <br>

@@ -51,7 +51,7 @@ a:visited {
   text-decoration: none;
 }
 
-.big_button {
+.big_button, .drop_down {
   display: inline-block;
   margin: 0 auto;
   margin-bottom: 10px;
