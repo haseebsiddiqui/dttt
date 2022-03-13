@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task Manager</title>
+    <meta name="description" content="Task Manager" />
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
+    <link rel="stylesheet" href="../css/dark-mode.min.css" id="theme-link" />
+    <link rel="icon" type="image/png" href="../favicons/m.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Return to Index
+            </legend>
+            <a href="../index.html">Click this to return to the website index</a>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Notes
+            </legend>
+            <!-- - <a href="../files/sample.txt">Click this to see a sample JSON file</a><br> -->
+            - Importing events will delete all previously stored events<br>
+            - This site can help validate JSON: <a
+                href="https://codebeautify.org/jsonviewer">https://codebeautify.org/jsonviewer</a><br>
+        </fieldset>
+
+        <!-- <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Notifications Instructions
+            </legend>
+            - The "Notifications" box should have a comma separated list of numbers that indicate when a notification
+            should take place<br>
+            - For example, 0,10,20 would trigger notifications 0, 10, and 20 minutes before an event<br>
+            - Enter -1 in the box to prevent notifications for that specific event<br>
+            - If the "Notifications" box is left empty then a notification at 0 seconds will be created
+        </fieldset> -->
+
+        <!-- <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Add Event
+            </legend>
+
+            <form name="eventForm" onsubmit="return false">
+                Event name <input type="text" name="name">
+                <br>
+                Event time (YYYY-MM-DD HH:MM) <input type="text" name="dateTime">
+                <br>
+                Notifications <input type="text" name="notifications">
+                <br>
+                <input class="formButton" type="submit" value="Submit" onclick="addEvent()">
+            </form>
+        </fieldset> -->
+
+        <!-- <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Quick Add
+            </legend>
+
+            <form name="quickAddForm" onsubmit="return false">
+                Event name <input type="text" name="name">
+                <br>
+                <input class="formButton" type="submit" value="0m" onclick="quickAdd(0)">
+                <input class="formButton" type="submit" value="5m" onclick="quickAdd(5)">
+                <input class="formButton" type="submit" value="15m" onclick="quickAdd(15)">
+                <input class="formButton" type="submit" value="30m" onclick="quickAdd(30)">
+                <input class="formButton" type="submit" value="45m" onclick="quickAdd(45)">
+                <input class="formButton" type="submit" value="60m" onclick="quickAdd(60)">
+            </form>
+        </fieldset> -->
+
+        <br>
+        <div class="button_container">
+            <button type="button" class="big_button" onclick="changePageTitle('mect')">Set Custom Page Title</button>
+            <br>
+            <button type="button" class="big_button" onclick="toggleLightMode()">Toggle Light Mode</button>
+            <button type="button" class="big_button" onclick="updateEventStatistics()">Update Event Statistics</button>
+            <br>
+            <button type="button" class="big_button" onclick="enableNotifications()">Enable Notifications</button>
+            <button type="button" class="big_button" onclick="disableNotifications()">Disable Notifications</button>
+            <button type="button" class="big_button" onclick="testNotification()">Test Notification</button>
+            <br>
+            <button type="button" class="big_button" onclick="sortEvents(1)">Sort Events (Earlier to Later)</button>
+            <button type="button" class="big_button" onclick="sortEvents(2)">Sort Events (Later to Earlier)</button>
+            <button type="button" class="big_button" onclick="clearEvents()">Clear Events</button>
+            <br>
+            <button type="button" class="big_button" onclick="importEvent()">Add One Event</button>
+            <button type="button" class="big_button" onclick="importEvents()">Import Events from Text</button>
+            <br>
+            <button type="button" class="big_button" onclick="exportEvents(1)">Export Events to Text (Compact)</button>
+            <button type="button" class="big_button" onclick="exportEvents(2)">Export Events to Text (Beautify)</button>
+            <br>
+            <button type="button" class="big_button" onclick="displayAllEvents(3)">All Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(1)">Future Events</button>
+            <button type="button" class="big_button" onclick="displayAllEvents(2)">Past Events</button>
+            <br>
+            <select id="format_picker" class="drop_down" onchange="changeFormat()">
+                <option value="none" selected disabled hidden>Pick Upcoming/Passed Format</option>
+                <option value="6">YMDHMS</option>
+                <option value="5">MDHMS</option>
+                <option value="4">DHMS</option>
+                <option value="3">HMS</option>
+                <option value="2">MS</option>
+                <option value="1">S</option>
+                <option value="7">WDHMS</option>
+                <option value="8">DH</option>
+            </select>
+            <select id="compact_picker" class="drop_down" onchange="changeCompact()">
+                <option value="none" selected disabled hidden>Pick Compact View</option>
+                <option value="notCompact">Not Compact</option>
+                <option value="compact">Compact</option>
+                <option value="ultraCompact">Ultra Compact</option>
+                <option value="ultraCompactWithButtons">Ultra Compact with Buttons</option>
+            </select>
+        </div>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Current Time
+            </legend>
+            <div id="current_time_div"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="group">
+            <legend class="group_title">
+                Task Statistics
+            </legend>
+            <div id="statistics_div"></div>
+        </fieldset>
+
+        <br>
+        <fieldset class="group" class="event_group">
+            <legend class="group_title">
+                Your Tasks
+            </legend>
+            <div id="events_container">
+
+            </div>
+        </fieldset>
+    </div>
+
+    <script type="text/javascript" src="../js/HackTimer.min.js"></script>
+    <script type="text/javascript" src="../js/moment.min.js"></script>
+    <script type="text/javascript" src="../js/moment-precise-range.min.js"></script>
+    <script type="text/javascript" src="../js/main.min.js"></script>
+    <script type="text/javascript" src="../js/tasks.min.js"></script>
+</body>
+
+</html>
